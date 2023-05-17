@@ -19,8 +19,10 @@ module.exports = {
       'secondry-black': '#191A19',
       'background': '#FCFFFD',
       "input-background": '#F3F6F2',
-      "button-text": "#F7FFFA",
-      "error":'#DF2E2E'
+      "button-color": "#F7FFFA",
+      "error":'#DF2E2E',
+      "gray-text":'#ACADAC',
+      "white":'#ffffff'
     },
     extend: {},
   },

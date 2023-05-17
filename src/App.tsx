@@ -5,6 +5,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'screens/splash/splash.screen';
 import Login from 'screens/login/login.screen';
+import Register from 'screens/register/register.screen';
+import ResetPassword from 'screens/reset_password/reset_password.screen';
+import ForgetPasswordScreen from 'screens/forget_password/forget_password.screen';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -12,6 +15,9 @@ const App = () => {
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name="splash" component={SplashScreen} />
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="register" component={Register} />
+        <Stack.Screen name="resetpassword" component={ResetPassword} />
+        <Stack.Screen name="forgetpassword" component={ForgetPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -17,7 +17,9 @@ interface IInput {
   rules?: any;
 }
 const Input = (props: IInput) => {
-  const [state, setState] = useSetState({});
+  const [state, setState] = useSetState({
+    focus: false,
+  });
 
   return (
     <>
@@ -29,11 +31,15 @@ const Input = (props: IInput) => {
           render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
             <>
               <View
-                className={`flex flex-row items-center justity-between px-4 bg-input-background rounded-lg h-14 ${
-                  error && `border border-error`
-                }`}>
+                className={`flex flex-row items-center justity-between px-4 rounded-lg h-14 ${
+                  state.focus
+                    ? 'bg-white border-2 border-input-background'
+                    : 'bg-input-background'
+                } ${error && `border border-error`}`}>
                 <View className="flex-1">
                   <TextInput
+                    onFocus={() => setState({focus: true})}
+                    onBlur={() => setState({focus: false})}
                     value={value}
                     onChangeText={onChange}
                     inputMode={props.type}
@@ -52,7 +58,7 @@ const Input = (props: IInput) => {
                 )}
               </View>
               {error && (
-                <Text className="text-sm font-merriweather text-error px-1 mt-1.5">
+                <Text className="text-s font-merriweather text-error px-1 mt-1.5">
                   {error.message}
                 </Text>
               )}

@@ -12,7 +12,7 @@ const PrimaryButton = (props: IPrimaryButton) => {
     <TouchableOpacity onPress={props.onClick()}>
       <View
         className={`h-full w-full rounded-xl flex flex-row justify-center items-center bg-primary-green ${props.style}`}>
-        <Text className={`font-merriweather text-sm text-button-text ${props.buttonStyle}`}>
+        <Text className={`font-merriweather text-sm text-button-color ${props.buttonStyle}`}>
           {props.text}
         </Text>
       </View>

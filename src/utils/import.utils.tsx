@@ -5,6 +5,8 @@ import ImageComponent from 'components/image/image.component';
 import Input from 'components/input/input.component';
 import PrimaryButton from 'components/primaryButton/primaryButton.component';
 import SocialComponent from 'components/social/social.componet';
+import Header from 'components/header/header.component';
+import Validation from './validation.utils';
 export {
     Container,
     Functions,
@@ -12,6 +14,8 @@ export {
     ImageComponent,
     Input,
     PrimaryButton,
-    SocialComponent
+    SocialComponent,
+    Header,
+    Validation
 
 }
