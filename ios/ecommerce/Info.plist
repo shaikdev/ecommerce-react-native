@@ -67,5 +67,32 @@
 		<string>Merriweather-LightItalic.ttf</string>
 		<string>Merriweather-Regular.ttf</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>***Your bundle ID***</string>
+        </array>
+    </dict>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.580727078144-3dupj7pdmqghe79v8q58anre33a22tgl</string>
+        </array>
+    </dict>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>***Something here***</string>
+        </array>
+    </dict>
+</array>
 </dict>
 </plist>
