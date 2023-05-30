@@ -1,8 +1,11 @@
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import {Platform} from 'react-native';
 GoogleSignin.configure({
   webClientId:
-    '580727078144-3dupj7pdmqghe79v8q58anre33a22tgl.apps.googleusercontent.com',
+    Platform.OS === 'android'
+      ? '580727078144-0vreea52abvg1d876jc2grtuth9achkr.apps.googleusercontent.com'
+      : '580727078144-3dupj7pdmqghe79v8q58anre33a22tgl.apps.googleusercontent.com',
 });
 
 export const onGoogleButtonPress = async () => {
