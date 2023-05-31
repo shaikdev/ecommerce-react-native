@@ -4,7 +4,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IContainer {
   loading?: boolean;
-  statusBarColor?: string;
+  statusBarColor?: any;
   children?: any;
 }
 const Container = (props: IContainer) => {
@@ -12,7 +12,7 @@ const Container = (props: IContainer) => {
   return (
     <View>
       <StatusBar
-        backgroundColor={'red'}
+        backgroundColor={props.statusBarColor || 'transparent'}
         translucent={true}
         hidden={false}
         barStyle={'dark-content'}
@@ -20,7 +20,9 @@ const Container = (props: IContainer) => {
       {props.loading ? (
         <View></View>
       ) : (
-        <View style={{paddingTop: inset.top}} className="h-full w-full bg-background">
+        <View
+          style={{paddingTop: inset.top}}
+          className="h-full w-full bg-background">
           {props.children}
         </View>
       )}

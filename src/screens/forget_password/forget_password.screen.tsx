@@ -42,6 +42,7 @@ const ForgetPasswordScreen = (props: any) => {
         <View className="pt-4 flex justify-center items-center">
           <ImageComponent
             width={229}
+            svg
             height={250}
             src={Assets.forgetpassword_illustrator}
           />

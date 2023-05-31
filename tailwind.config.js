@@ -22,7 +22,9 @@ module.exports = {
       "button-color": "#F7FFFA",
       "error":'#DF2E2E',
       "gray-text":'#ACADAC',
-      "white":'#ffffff'
+      "white":'#ffffff',
+      "statusBar":'#379237',
+      "googleColor":'#4285f4'
     },
     extend: {},
   },

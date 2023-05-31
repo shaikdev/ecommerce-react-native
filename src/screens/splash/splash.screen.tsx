@@ -1,6 +1,6 @@
 import {View, Text} from 'react-native';
 import React, {useEffect} from 'react';
-import {Assets, Container, ImageComponent} from 'utils/import.utils';
+import {Assets, Container, Functions, ImageComponent} from 'utils/import.utils';
 
 const SplashScreen = (props: any) => {
   useEffect(() => {
@@ -14,7 +14,7 @@ const SplashScreen = (props: any) => {
   return (
     <Container>
       <View className="flex justify-center items-center h-full">
-        <ImageComponent width={169} height={179} src={Assets.logo} />
+        <ImageComponent width={169} svg height={179} src={Assets.logo} />
       </View>
     </Container>
   );

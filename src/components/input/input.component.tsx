@@ -42,9 +42,10 @@ const Input = (props: IInput) => {
                     onBlur={() => setState({focus: false})}
                     value={value}
                     onChangeText={onChange}
+                    placeholderTextColor={'#000000'}
                     inputMode={props.type}
                     placeholder={props.placeholder}
-                    className={`h-full rounded-lg ${props.inputStyle}`}
+                    className={`h-full rounded-lg text-secondry-black ${props.inputStyle}`}
                   />
                 </View>
                 {props.icon && (

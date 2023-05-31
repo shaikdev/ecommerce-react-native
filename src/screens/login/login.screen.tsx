@@ -3,26 +3,30 @@ import React from 'react';
 import {
   Assets,
   Container,
+  Functions,
   ImageComponent,
   Input,
   PrimaryButton,
   SocialComponent,
-  Validation
+  Validation,
+  onGoogleButtonPress,
 } from 'utils/import.utils';
 import {useSetState} from 'utils/functions.utils';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
+import Models from 'imports/models.imports';
+import {ILogin} from 'helper/interface.helper';
 
 const Login = (props: any) => {
   // state
   const [state, setState] = useSetState({
-    error: '',
+    success: false,
   });
-
   // hook form
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm({
     defaultValues: {
@@ -32,9 +36,23 @@ const Login = (props: any) => {
     resolver: zodResolver(Validation.loginSchema),
   });
 
-  const handleLogin = (data: any) => {};
+  const handleLogin = async (body: ILogin) => {
+    try {
+      const res: any = await Models.auth.login(body);
+      Functions.Sucess('Login successfully');
+      setState({success: true});
+      reset();
+      setTimeout(() => {
+        setState({success: false});
+        props.navigation.navigate('home');
+      }, 1500);
+    } catch (err: any) {
+      Functions.Failure(err);
+    }
+  };
+
   return (
-    <Container>
+    <Container statusBarColor={state.success ? '#379237' : 'transparent'}>
       <ScrollView
         style={{height: '100%'}}
         contentContainerStyle={{paddingBottom: 40}}>
@@ -48,6 +66,7 @@ const Login = (props: any) => {
             </Text>
             <View className="mt-4">
               <ImageComponent
+                svg
                 width={229}
                 height={250}
                 src={Assets.login_illustrator}
@@ -93,9 +112,9 @@ const Login = (props: any) => {
           <Text className="font-merriweather text-xs text-secondry-black">
             Or Sign In with
           </Text>
-          <View className="mt-5">
-            <SocialComponent />
-          </View>
+        </View>
+        <View className="w-1/2 m-auto mt-5">
+          <SocialComponent />
         </View>
         <View
           className={`flex flex-col justify-start items-center flex-1 mt-8`}>

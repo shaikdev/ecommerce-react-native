@@ -1,25 +1,29 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {Assets, ImageComponent} from 'utils/import.utils';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
+import {onGoogleButtonPress} from 'utils/import.utils';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface ISocial {
-  icon: any;
-  onClick: Function;
+  onClick?: Function;
 }
-const SocialComponent = () => {
+const SocialComponent = (props: ISocial) => {
   return (
-    <View className="flex flex-row space-x-8 items-center justify-center  rounded-2xl">
-      <View className="w-10 h-10 bg-input-background flex items-center justify-center rounded-2xl">
-        <ImageComponent width={28} height={28} src={Assets.Facebook} />
+    <TouchableOpacity onPress={()=>onGoogleButtonPress()}>
+      <View className="h-10 bg-input-background rounded-md">
+        <View className="flex flex-row space-x-2 items-center justify-center flex-1">
+          <View className='mt-1'>
+            <ImageComponent width={22} height={22} svg src={Assets.Google} />
+          </View>
+          <View>
+            <Text className="font-raleway-medium text-base text-secondry-black">
+              Sign in with Google
+            </Text>
+          </View>
+        </View>
       </View>
-
-      <View className="w-10 h-10 bg-input-background flex items-center justify-center rounded-2xl">
-        <ImageComponent width={28} height={28} src={Assets.Google} />
-      </View>
-      <View className="w-10 h-10 bg-input-background flex items-center justify-center rounded-2xl">
-        <ImageComponent width={28} height={28} src={Assets.Apple} />
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

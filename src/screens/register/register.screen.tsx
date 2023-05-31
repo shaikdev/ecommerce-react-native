@@ -1,27 +1,31 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import React from 'react';
 import {
   Assets,
   Container,
+  Functions,
   ImageComponent,
   Input,
   PrimaryButton,
   SocialComponent,
-  Validation
+  Validation,
 } from 'utils/import.utils';
 import {useForm} from 'react-hook-form';
 import {useSetState} from 'utils/functions.utils';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ScrollView} from 'react-native-gesture-handler';
+import Models from 'imports/models.imports';
+import {IRegister} from 'helper/interface.helper';
 
 const Register = (props: any) => {
   // state
   const [state, setState] = useSetState({
-    checkboxActive: false,
+    success: false,
   });
 
   const {
     handleSubmit,
+    reset,
     control,
     formState: {errors},
   } = useForm({
@@ -33,13 +37,28 @@ const Register = (props: any) => {
     },
     resolver: zodResolver(Validation.registerSchema),
   });
-  const register = () => {};
+
+  const register = async (body: IRegister) => {
+    try {
+      delete body.confirmpassword;
+      const res: any = await Models.auth.register(body);
+      reset();
+      setState({success: true});
+      Functions.Sucess('Register successfully');
+      setTimeout(() => {
+        props.navigation.navigate('login');
+      }, 1500);
+    } catch (err: any) {
+      Functions.Failure(err);
+    }
+  };
+
   return (
-    <Container>
+    <Container statusBarColor={state.success ? '#379237' : 'transparent'}>
       <ScrollView
         contentContainerStyle={{paddingBottom: 40}}
         style={{height: '100%'}}>
-        <View className="flex items-center pt-2">
+        <View className="flex items-center pt-5">
           <Text className="text-3xl font-raleway-semi-bold text-secondry-black ">
             Sign Up
           </Text>
@@ -47,11 +66,12 @@ const Register = (props: any) => {
             Fill the details and create your new account
           </Text>
         </View>
-        <View className="px-8 pt-8">
+        <View className="px-5 pt-8">
           <View className="">
             <Input
               label="Email"
               style={'mb-4'}
+              inputStyle={'placeholder:font-merriweather text-sm'}
               type={'text'}
               control={control}
               name="email"
@@ -62,6 +82,7 @@ const Register = (props: any) => {
             <Input
               label="Name"
               style={'mb-4'}
+              inputStyle={'placeholder:font-merriweather text-sm'}
               type={'text'}
               control={control}
               name="name"
@@ -74,6 +95,7 @@ const Register = (props: any) => {
               label="password"
               style={'mb-4'}
               type={'text'}
+              inputStyle={'placeholder:font-merriweather text-sm'}
               control={control}
               name="password"
               placeholder="Password"
@@ -84,36 +106,13 @@ const Register = (props: any) => {
               icon={Assets.eye_open}
               label="Confirm Password"
               type={'text'}
+              inputStyle={'placeholder:font-merriweather text-sm'}
               control={control}
               name="confirmpassword"
               placeholder="Confirm Password"
             />
           </View>
-          <View className="flex flex-row space-x-2 mt-4 mb-5 ">
-            <TouchableOpacity
-              onPress={() => setState({checkboxActive: !state.checkboxActive})}>
-              <ImageComponent
-                width={24}
-                height={24}
-                src={
-                  state.checkboxActive
-                    ? Assets.checkbox_enable
-                    : Assets.checkbox_disbale
-                }
-              />
-            </TouchableOpacity>
-            <View className="flex flex-row items-center space-x-1">
-              <View>
-                <Text className="font-merriweather text-xs text-secondry-black">
-                  I have read and agree to the
-                </Text>
-              </View>
-              <Text className="font-merriweather text-xs text-primary-green">
-                Privacy Policy
-              </Text>
-            </View>
-          </View>
-          <View className="h-14 mt-4">
+          <View className="h-14 mt-7">
             <PrimaryButton
               buttonStyle={'font-bold'}
               onClick={() => handleSubmit(register)}
