@@ -6,6 +6,7 @@ import {TextInput} from 'react-native-gesture-handler';
 interface ISearch {
   icon?: any;
   placeholder: string;
+  placeHolderTextColor?: string;
 }
 const SearchComponent = (props: ISearch) => {
   return (
@@ -16,6 +17,7 @@ const SearchComponent = (props: ISearch) => {
         </View>
         <View className="flex-1">
           <TextInput
+            placeholderTextColor={props.placeHolderTextColor || '#000000'}
             placeholder={props.placeholder}
             className="h-full w-full text-[14px] text-secondry-black placeholder:font-merriweather placeholder:text-secondry-black placeholder:text-[14px]"
           />

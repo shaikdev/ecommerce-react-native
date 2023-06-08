@@ -13,7 +13,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {zodResolver} from '@hookform/resolvers/zod';
 
-const ForgetPasswordScreen = (props: any) => {
+const ForgotPasswordScreen = (props: any) => {
   // hook form
   const {control, handleSubmit} = useForm({
     defaultValues: {
@@ -74,4 +74,4 @@ const ForgetPasswordScreen = (props: any) => {
   );
 };
 
-export default ForgetPasswordScreen;
+export default ForgotPasswordScreen;

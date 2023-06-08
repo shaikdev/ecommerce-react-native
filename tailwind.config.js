@@ -24,7 +24,8 @@ module.exports = {
       "gray-text":'#ACADAC',
       "white":'#ffffff',
       "statusBar":'#379237',
-      "googleColor":'#4285f4'
+      "googleColor":'#4285f4',
+      "offer-text-color":"#F7FFFA"
     },
     extend: {},
   },

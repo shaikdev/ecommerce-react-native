@@ -13,6 +13,8 @@ import forgetpassword_illustrator from 'assets/images/forgetpassword_illustrator
 import profile_pic from 'assets/images/profile_pic.png';
 import search from 'assets/icons/search.svg';
 import orange from 'assets/icons/orange.svg';
+import slider from 'assets/images/slider.png';
+import cart from 'assets/icons/cart.svg';
 
 const Assets = {
   logo,
@@ -28,7 +30,9 @@ const Assets = {
   forgetpassword_illustrator,
   profile_pic,
   search,
-  orange
+  orange,
+  slider,
+  cart
 };
 
 export default Assets;

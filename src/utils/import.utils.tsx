@@ -10,6 +10,9 @@ import Validation from './validation.utils';
 import SearchComponent from 'components/search/search.component';
 import CategoryComponent from 'components/category/category.component';
 import {onGoogleButtonPress} from 'utils/google.auth'
+import SliderComponent from 'components/slider/slider.component';
+import TabsComponent from 'components/tabs/tabs.component';
+import CardComponent from 'components/card/card.component';
 export {
   Container,
   Functions,
@@ -22,5 +25,8 @@ export {
   Validation,
   SearchComponent,
   CategoryComponent,
-  onGoogleButtonPress
+  onGoogleButtonPress,
+  SliderComponent,
+  TabsComponent,
+  CardComponent
 };

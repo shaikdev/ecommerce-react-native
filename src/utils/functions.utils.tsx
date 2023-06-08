@@ -48,6 +48,14 @@ export const Failure = (message: string, description?: string) => {
   });
 };
 
+export const Width = (value: number) => {
+  return (value * width) / 100;
+};
+
+export const Height = (value: number) => {
+  return (value * height) / 100;
+};
+
 export const statusBarHeight = getStatusBarHeight();
 
 
