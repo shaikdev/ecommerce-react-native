@@ -35,7 +35,7 @@ const ForgotPasswordScreen = (props: any) => {
           </TouchableOpacity>
         </View>
         <View className="pt-3 flex justify-center items-center">
-          <Text className="text-secondry-black font-raleway-semi-bold text-[28px]">
+          <Text className="text-secondary-black font-raleway-semi-bold text-[28px]">
             Forgot Password
           </Text>
         </View>
@@ -48,7 +48,7 @@ const ForgotPasswordScreen = (props: any) => {
           />
         </View>
         <View className="pt-4 px-5">
-          <Text className="font-merriweather text-xs text-secondry-black">
+          <Text className="font-merriweather text-xs text-secondary-black">
             Enter your phone number to verify it’s you, and we will send you a
             one-time authorization code.
           </Text>

@@ -58,10 +58,10 @@ const Login = (props: any) => {
         contentContainerStyle={{paddingBottom: 40}}>
         <View className="px-5 pt-2">
           <View className="flex items-center justify-center">
-            <Text className="text-secondry-black text-3xl items-center font-raleway-semi-bold">
+            <Text className="text-secondary-black text-3xl items-center font-raleway-semi-bold">
               Sign In
             </Text>
-            <Text className="text-secondry-black text-xs font-merriweather pt-2">
+            <Text className="text-secondary-black text-xs font-merriweather pt-2">
               Fill the field below to Sign In
             </Text>
             <View className="mt-4">
@@ -109,7 +109,7 @@ const Login = (props: any) => {
           />
         </View>
         <View className="mt-6 flex items-center">
-          <Text className="font-merriweather text-xs text-secondry-black">
+          <Text className="font-merriweather text-xs text-secondary-black">
             Or Sign In with
           </Text>
         </View>

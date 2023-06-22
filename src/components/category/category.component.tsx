@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 interface ICategory {
   data?: any;
+  showName: boolean;
 }
 const CategoryComponent = (props: ICategory) => {
   const image = [
@@ -13,18 +14,21 @@ const CategoryComponent = (props: ICategory) => {
     Assets.orange,
     Assets.orange,
     Assets.orange,
+    Assets.orange,
   ];
   return (
-    <View className="flex-row space-x-6 items-center">
+    <View className="flex-row space-x-5 items-center">
       {image.map((item: any) => {
         return (
           <View>
             <View className="w-[55px] h-[55px] items-center justify-center border-2 border-input-background rounded-lg">
               <ImageComponent src={Assets.orange} svg width={40} height={40} />
             </View>
-            <Text className="text-xs text-center font-merriweather text-secondry-black mt-2">
-              Fruit
-            </Text>
+            {props.showName && (
+              <Text className="text-xs text-center font-merriweather text-secondary-black mt-2">
+                Fruit
+              </Text>
+            )}
           </View>
         );
       })}

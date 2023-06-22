@@ -59,10 +59,10 @@ const Register = (props: any) => {
         contentContainerStyle={{paddingBottom: 40}}
         style={{height: '100%'}}>
         <View className="flex items-center pt-5">
-          <Text className="text-3xl font-raleway-semi-bold text-secondry-black ">
+          <Text className="text-3xl font-raleway-semi-bold text-secondary-black ">
             Sign Up
           </Text>
-          <Text className="text-xs font-merriweather text-secondry-black pt-2">
+          <Text className="text-xs font-merriweather text-secondary-black pt-2">
             Fill the details and create your new account
           </Text>
         </View>
@@ -120,7 +120,7 @@ const Register = (props: any) => {
             />
           </View>
           <View className="flex items-center justify-center mt-6">
-            <Text className="font-merriweather text-xs text-secondry-black">
+            <Text className="font-merriweather text-xs text-secondary-black">
               Or Sign Up with
             </Text>
             <View className="mt-6">

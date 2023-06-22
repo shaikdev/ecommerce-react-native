@@ -6,6 +6,7 @@ interface IContainer {
   loading?: boolean;
   statusBarColor?: any;
   children?: any;
+  style?: any;
 }
 const Container = (props: IContainer) => {
   const inset = useSafeAreaInsets();
@@ -22,7 +23,7 @@ const Container = (props: IContainer) => {
       ) : (
         <View
           style={{paddingTop: inset.top}}
-          className="h-full w-full bg-background">
+          className={`h-full w-full bg-background ${props.style || ''}`}>
           {props.children}
         </View>
       )}

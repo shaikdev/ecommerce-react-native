@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import {Dimensions} from 'react-native';
+import {Alert, Dimensions} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 export const getBaseURL = () => {
   let baseURL = 'http://192.168.1.23:8001';
   // let baseURL = 'http://192.168.1.15:8001';
@@ -57,5 +57,3 @@ export const Height = (value: number) => {
 };
 
 export const statusBarHeight = getStatusBarHeight();
-
-

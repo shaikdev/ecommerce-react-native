@@ -1,8 +1,14 @@
-import {View, Text, FlatList, Animated} from 'react-native';
+import {View, Text, FlatList, Animated, Alert} from 'react-native';
 import React, {useEffect, useMemo, useRef} from 'react';
 import Assets from 'imports/asstes.imports';
 import {ImageComponent} from 'utils/import.utils';
-import {Height, Width, height, useSetState, width} from 'utils/functions.utils';
+import {
+  Height,
+  Width,
+  height,
+  useSetState,
+  width,
+} from 'utils/functions.utils';
 import {ExpandingDot} from 'react-native-animated-pagination-dots';
 
 const SliderComponent = () => {
@@ -12,19 +18,18 @@ const SliderComponent = () => {
 
   // state
   const [state, setState] = useSetState({
-    currentIndex:''
-
+    currentIndex: '',
   });
 
-  const renderItem = ({item}) => {
+  const renderItem = (data:any) => {
     return (
-      <View className="">
+      <View>
         <ImageComponent
           radius={10}
-          resize="cover"
+          resize="contain"
           width={width * 0.9}
-          height={150}
-          src={item}
+          height={(width * height) / width}
+          src={data.item}
         />
       </View>
     );
@@ -51,7 +56,6 @@ const SliderComponent = () => {
     return <View className="ml-8"></View>;
   };
 
-  console.log('index',state.currentIndex)
 
   return (
     <View className="w-full h-full">
@@ -99,7 +103,7 @@ const SliderComponent = () => {
             marginHorizontal: 5,
           }}
           containerStyle={{
-            top: 2,
+            top: 8,
           }}
         />
       </View>

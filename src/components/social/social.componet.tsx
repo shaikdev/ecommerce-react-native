@@ -17,7 +17,7 @@ const SocialComponent = (props: ISocial) => {
             <ImageComponent width={22} height={22} svg src={Assets.Google} />
           </View>
           <View>
-            <Text className="font-raleway-medium text-base text-secondry-black">
+            <Text className="font-raleway-medium text-base text-secondary-black">
               Sign in with Google
             </Text>
           </View>

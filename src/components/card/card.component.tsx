@@ -16,8 +16,8 @@ const CardComponent = () => {
       <View className="mt-2 items-center">
         <ImageComponent width={156} height={80} svg src={Assets.orange} />
       </View>
-      <View className="mt-1 px-2">
-        <Text className="text-secondry-black font-merriweather text-base font-bold">
+      <View className="px-2">
+        <Text className="text-secondary-black font-merriweather text-base font-bold">
           Orange
         </Text>
         <View className="flex-row justify-between items-start h-6">

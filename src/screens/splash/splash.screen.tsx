@@ -7,7 +7,7 @@ const SplashScreen = (props: any) => {
     setTimeout(() => {
       props.navigation.reset({
         index: 0,
-        routes: [{name: 'login'}],
+        routes: [{name: 'tabNavigator'}],
       });
     }, 2000);
   });

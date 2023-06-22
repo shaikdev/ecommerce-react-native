@@ -36,7 +36,7 @@ const ResetPassword = (props: any) => {
         />
       </View>
       <View className="px-5 mt-6">
-        <Text className="text-xs font-merriweather text-secondry-black">
+        <Text className="text-xs font-merriweather text-secondary-black">
           Your new password must be different from your previous password
         </Text>
       </View>

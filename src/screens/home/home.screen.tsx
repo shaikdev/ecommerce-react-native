@@ -6,6 +6,7 @@ import {
   CategoryComponent,
   Container,
   ImageComponent,
+  ScrollViewComponent,
   SearchComponent,
   SliderComponent,
   TabsComponent,
@@ -22,17 +23,13 @@ const HomeScreen = () => {
   };
   return (
     <Container>
-      <ScrollView
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 30}}
-        className="h-full w-full">
+      <ScrollViewComponent>
         <View className="pt-4 px-5 flex-row justify-between items-center">
           <View className="flex flex-col space-y-1">
-            <Text className="font-raleway-semi-bold text-[24px] text-secondry-black">
+            <Text className="font-raleway-semi-bold text-[24px] text-secondary-black">
               Hello Shaik
             </Text>
-            <Text className="font-merriweather text-xs text-secondry-black">
+            <Text className="font-merriweather text-xs text-secondary-black">
               what would you buy today
             </Text>
           </View>
@@ -53,13 +50,13 @@ const HomeScreen = () => {
             horizontal
             contentContainerStyle={{paddingRight: 40}}
             style={{width: '100%', paddingHorizontal: 20}}>
-            <CategoryComponent />
+            <CategoryComponent showName={true} />
           </ScrollView>
         </View>
         <View className="mt-5 w-full h-[160px] ">
           <SliderComponent />
         </View>
-        <View className="mt-6 h-4">
+        <View className="mt-7 h-4">
           <TabsComponent />
         </View>
         <View className="mt-5 mx-5 flex-row space-y-4 justify-between items-center flex-wrap">
@@ -71,7 +68,7 @@ const HomeScreen = () => {
             );
           })}
         </View>
-      </ScrollView>
+      </ScrollViewComponent>
     </Container>
   );
 };
