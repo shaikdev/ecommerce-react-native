@@ -6,7 +6,8 @@ interface ISearch {
   icon?: any;
   placeholder: string;
   placeHolderTextColor?: string;
-  onChange:Function
+  onChange:Function,
+  value:string
 }
 const SearchComponent = (props: ISearch) => {
   return (
@@ -19,6 +20,7 @@ const SearchComponent = (props: ISearch) => {
         )}
         <View className="flex-1">
           <TextInput
+           value={props.value}
            onChangeText={(value:string)=>props.onChange(value)}
             placeholderTextColor={props.placeHolderTextColor || '#000000'}
             placeholder={props.placeholder}

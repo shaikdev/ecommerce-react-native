@@ -19,6 +19,7 @@ import {useIsFocused} from '@react-navigation/native';
 const FilterScreen = (props: any) => {
   // redux
   const filter = useSelector((state: any) => state.filter.filter);
+  // state
   const [isStore, setStore] = useState(false);
   const [isRefresh, setRefresh] = useState(true);
 
@@ -35,7 +36,7 @@ const FilterScreen = (props: any) => {
     dispatch({type: 'CATEGORY', payload: filter.category});
     dispatch({type: 'PRICE', payload: filter.price});
     dispatch({type: 'RATING', payload: filter.rating});
-    dispatch({type:'DELIVERY_TIME',payload: filter.delivery_time});
+    dispatch({type: 'DELIVERY_TIME', payload: filter.delivery_time});
   }, [isFocused]);
 
   useEffect(() => {

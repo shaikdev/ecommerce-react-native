@@ -8,7 +8,8 @@ interface ISearchHeader {
   filter_icon: any;
   onClick: any;
   onFilterScreen: any;
-  onChange:Function
+  onChange:Function,
+  value:string
 }
 const SearchHeaderComponent = (props: ISearchHeader) => {
   return (
@@ -18,6 +19,7 @@ const SearchHeaderComponent = (props: ISearchHeader) => {
       </TouchableOpacity>
       <View className="flex-1">
         <SearchComponent
+          value={props.value}
           onChange={(value:string)=>props.onChange(value)}
           placeHolderTextColor={'#ACADAC'}
           placeholder={props.placeholder}

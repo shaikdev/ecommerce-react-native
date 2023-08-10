@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   Assets,
@@ -7,16 +7,14 @@ import {
   CategorySearchComponent,
   Container,
   ImageComponent,
-  ScrollViewComponent,
+  LoaderComponent,
   SearchHeaderComponent,
 } from 'utils/import.utils';
-import {set} from 'lodash';
 import Models from 'imports/models.imports';
 import _ from 'lodash';
 import {IProduct} from 'helper/interface.helper';
 import {storeProductDetails} from 'utils/redux.utils';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import search from 'models/search.model';
+import {useIsFocused} from '@react-navigation/native';
 
 const SearchScreen = (props: any) => {
   // state
@@ -24,6 +22,9 @@ const SearchScreen = (props: any) => {
   const [isProduct, setProduct] = useState([]);
   const [isSearchData, setSearchData] = useState([]);
   const [isLoading, setLoading] = useState(false);
+
+  // react navigation
+  const isFocused = useIsFocused();
 
   // api calls
   const getProductBySearch = async (search: string) => {
@@ -61,12 +62,6 @@ const SearchScreen = (props: any) => {
     }
   };
 
-  const productDetails = async (item: IProduct) => {
-    createSearch(item);
-    storeProductDetails(item);
-    props.navigation.navigate('itemDetails');
-  };
-
   const deleteSearch = async (item: IProduct) => {
     try {
       const body = {
@@ -79,14 +74,30 @@ const SearchScreen = (props: any) => {
     }
   };
 
+  // logic
+  const productDetails = async (item: IProduct) => {
+    createSearch(item);
+    storeProductDetails(item);
+    setSearch('');
+    props.navigation.navigate('itemDetails');
+  };
+
+  const navigateProduct = (item: IProduct) => {
+    storeProductDetails(item);
+    props.navigation.navigate('itemDetails');
+  };
+
   useEffect(() => {
-    getSearchData();
-  }, [isSearch]);
+    if (isFocused) {
+      getSearchData();
+    }
+  }, [isSearch, isFocused]);
 
   return (
     <Container>
       <View className="px-5 h-[60px] w-full mt-4">
         <SearchHeaderComponent
+          value={isSearch}
           onChange={(value: string) => {
             setSearch(value);
             getProductBySearch(value);
@@ -98,8 +109,8 @@ const SearchScreen = (props: any) => {
           icon={Assets.arrow_left}
         />
       </View>
-      <View className="mt-6 px-5">
-        <Text className="font-raleway-semi-bold text-xl text-secondary-black">
+      <View className="mt-6">
+        <Text className="font-raleway-semi-bold text-xl text-secondary-black px-4">
           {isSearch.length > 0 ? (
             <>Result for : {isSearch}</>
           ) : (
@@ -108,34 +119,42 @@ const SearchScreen = (props: any) => {
         </Text>
         {isSearch.length > 0 ? (
           <>
-            {_.isEmpty(isProduct) ? (
-              <View className="justify-center h-[75%] items-center">
-                <Text className="font-merriweather font-bold text-xl text-gray-text">
-                  No Data
-                </Text>
+            {isLoading ? (
+              <View className="items-center justify-center h-[75%]">
+                <LoaderComponent color="#689C36" />
               </View>
             ) : (
-              <View className="mt-5 flex-row space-y-4 justify-between items-center flex-wrap flex-1">
-                {isProduct &&
-                  isProduct.map((item: IProduct, index: number) => {
-                    return (
-                      <View key={index} className="w-[166px] h-[172px]">
-                        <TouchableOpacity
-                          activeOpacity={0.9}
-                          onPress={() => productDetails(item)}>
-                          <CardComponent
-                            index={index}
-                            productKg={item.product_kg}
-                            pice={item.price}
-                            offer_value={item.offer_value}
-                            thumbnail={item.cover_photo}
-                            productName={item.name}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })}
-              </View>
+              <>
+                {_.isEmpty(isProduct) ? (
+                  <View className="justify-center h-[75%] items-center px-5">
+                    <Text className="font-merriweather font-bold text-xl text-gray-text">
+                      No Data
+                    </Text>
+                  </View>
+                ) : (
+                  <View className="mt-5 flex-row space-y-4 justify-between items-center flex-wrap flex-1 px-5">
+                    {isProduct &&
+                      isProduct.map((item: IProduct, index: number) => {
+                        return (
+                          <View key={index} className="w-[166px] h-[172px]">
+                            <TouchableOpacity
+                              activeOpacity={0.9}
+                              onPress={() => productDetails(item)}>
+                              <CardComponent
+                                index={index}
+                                productKg={item.product_kg}
+                                pice={item.price}
+                                offer_value={item.offer_value}
+                                thumbnail={item.cover_photo}
+                                productName={item.name}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      })}
+                  </View>
+                )}
+              </>
             )}
           </>
         ) : (
@@ -143,12 +162,21 @@ const SearchScreen = (props: any) => {
             {!_.isEmpty(isSearchData) && (
               <View>
                 <View className="mt-3">
-                  <CategorySearchComponent data={isSearchData} />
+                  <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    contentContainerStyle={{paddingRight: 0}}
+                    style={{width: '100%', paddingHorizontal: 20}}>
+                    <CategorySearchComponent
+                      onPress={(item: IProduct) => navigateProduct(item)}
+                      data={isSearchData}
+                    />
+                  </ScrollView>
                 </View>
               </View>
             )}
             {!_.isEmpty(isSearchData) && (
-              <View className="mt-6">
+              <View className="mt-6 px-5">
                 <Text className="font-raleway-semi-bold text-xl text-secondary-black">
                   Last Search
                 </Text>

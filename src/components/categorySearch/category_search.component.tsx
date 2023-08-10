@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ImageComponent, Assets} from 'utils/import.utils';
 import _ from 'lodash';
@@ -6,6 +6,7 @@ import {IProduct} from 'helper/interface.helper';
 
 interface ICategory {
   data: any;
+  onPress: Function;
 }
 const CategorySearchComponent = (props: ICategory) => {
   return (
@@ -13,15 +14,18 @@ const CategorySearchComponent = (props: ICategory) => {
       {props.data &&
         props.data.map((item: IProduct, i: number) => {
           return (
-            <View key={i}
+            <View
+              key={i}
               className={`w-[44px] h-[44px] items-center  justify-center border-2 rounded-lg border-input-background`}>
-              <ImageComponent
-                resize="cover"
-                radius={8}
-                src={item.cover_photo}
-                width={36}
-                height={36}
-              />
+              <TouchableOpacity onPress={()=>props.onPress(item)}>
+                <ImageComponent
+                  resize="cover"
+                  radius={8}
+                  src={item.cover_photo}
+                  width={36}
+                  height={36}
+                />
+              </TouchableOpacity>
             </View>
           );
         })}
