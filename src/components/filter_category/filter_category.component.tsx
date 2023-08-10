@@ -1,9 +1,20 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+import _ from 'lodash';
 
-const FilterCategoryComponent = () => {
+interface IFilterCategory {
+  onChange: Function;
+  data?: any;
+  active: string;
+}
+
+const FilterCategoryComponent = (props: IFilterCategory) => {
   const data = ['All', 'Vegetables', 'Fruits', 'Egg & Meals'];
+  const handleCategory = (item: string) => {
+    if (_.isEqual(props.active, item)) props.onChange('');
+    else props.onChange(item);
+  };
   return (
     <View className="w-full h-full">
       <ScrollView
@@ -14,13 +25,24 @@ const FilterCategoryComponent = () => {
         <View className="flex-row justify-start items-center space-x-3">
           {data.map((item: any, index: number) => {
             return (
-              <View
-                key={index}
-                className="h-8 px-4 border rounded-lg border-gray-text items-center justify-center">
-                <Text className="font-merriweather text-sm text-filter-category-text-color">
-                  {item}
-                </Text>
-              </View>
+              <TouchableOpacity onPress={() => handleCategory(item)}>
+                <View
+                  key={index}
+                  className={`h-8 px-4  rounded-lg  items-center justify-center ${
+                    props.active === item
+                      ? 'bg-primary-green'
+                      : 'border-gray-text border'
+                  }`}>
+                  <Text
+                    className={`font-merriweather text-sm ${
+                      props.active === item
+                        ? 'text-button-color'
+                        : 'text-filter-category-text-color'
+                    }`}>
+                    {item}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             );
           })}
         </View>

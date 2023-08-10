@@ -31,6 +31,8 @@ import star from 'assets/icons/star.svg';
 import brocoli from 'assets/icons/brocoli.svg';
 import trash from 'assets/icons/trash.svg';
 import heart_active from 'assets/icons/heart_active.svg';
+import lottie_loading from 'assets/lottie/loading.json'
+import lottie_search from 'assets/lottie/search.json'
 
 const Assets = {
   logo,
@@ -64,7 +66,9 @@ const Assets = {
   star,
   brocoli,
   trash,
-  heart_active
+  heart_active,
+  lottie_loading,
+  lottie_search
 
 };
 

@@ -1,12 +1,12 @@
-import {View, Text} from 'react-native';
+import {View, Text, TextInput, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 import {ImageComponent} from 'utils/import.utils';
-import {TextInput} from 'react-native-gesture-handler';
 
 interface ISearch {
   icon?: any;
   placeholder: string;
   placeHolderTextColor?: string;
+  onChange:Function
 }
 const SearchComponent = (props: ISearch) => {
   return (
@@ -19,6 +19,7 @@ const SearchComponent = (props: ISearch) => {
         )}
         <View className="flex-1">
           <TextInput
+           onChangeText={(value:string)=>props.onChange(value)}
             placeholderTextColor={props.placeHolderTextColor || '#000000'}
             placeholder={props.placeholder}
             className="h-full w-full text-[14px] text-secondary-black placeholder:font-merriweather placeholder:text-secondary-black placeholder:text-[14px]"

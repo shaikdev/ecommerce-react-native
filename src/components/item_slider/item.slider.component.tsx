@@ -5,14 +5,12 @@ import {ImageComponent} from 'utils/import.utils';
 import {height, useSetState, width} from 'utils/functions.utils';
 import {ExpandingDot} from 'react-native-animated-pagination-dots';
 
-const ItemSliderComponent = () => {
+interface IItemSlider {
+  data:string[]
+}
+const ItemSliderComponent = (props:IItemSlider) => {
   // ref
   const flatListRef: any = useRef(null);
-  const images = [
-    Assets.product_image,
-    Assets.product_image,
-    Assets.product_image,
-  ];
 
   // state
   const [state, setState] = useSetState({
@@ -23,7 +21,6 @@ const ItemSliderComponent = () => {
     return (
       <View className="justify-center items-center">
         <ImageComponent
-          svg
           resize="contain"
           width={width * 0.9}
           height={'90%'}
@@ -51,7 +48,7 @@ const ItemSliderComponent = () => {
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
         decelerationRate={'normal'}
-        data={images}
+        data={props.data}
         ItemSeparatorComponent={Separator}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
@@ -63,7 +60,7 @@ const ItemSliderComponent = () => {
       />
       <View>
         <ExpandingDot
-          data={images}
+          data={props.data}
           expandingDotWidth={15}
           scrollX={scrollX}
           inActiveDotOpacity={0.6}

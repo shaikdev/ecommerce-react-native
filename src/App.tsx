@@ -5,6 +5,7 @@ import {
   Assets,
   ImageComponent,
   BottomNavigator,
+  Functions,
 } from './utils/import.utils';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,24 +19,30 @@ import ItemDetailsScreen from 'screens/item_details/item.details.screen';
 import SearchScreen from 'screens/search_screen/search.screen';
 import FilterScreen from 'screens/filter/filter.screen';
 import WishlistScreen from 'screens/wishlist/wishlist.screen';
+import {Provider} from 'react-redux';
+import store from 'store/store';
 const Stack = createStackNavigator();
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        {/* 
-        <Stack.Screen name="splash" component={SplashScreen} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="register" component={Register} />
-        <Stack.Screen name="resetpassword" component={ResetPassword} />
-        <Stack.Screen name="forgotpassword" component={ForgotPasswordScreen} /> */}
-        {/* <Stack.Screen name="itemDetails" component={ItemDetailsScreen} /> */}
-        {/* <Stack.Screen name="tabNavigator" component={BottomNavigator} /> */}
-        {/* <Stack.Screen name="search" component={SearchScreen} /> */}
-        {/* <Stack.Screen name="filter" component={FilterScreen} /> */}
-        <Stack.Screen name="wishlist" component={WishlistScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="splash" component={SplashScreen} />
+          <Stack.Screen name="login" component={Login} />
+          <Stack.Screen name="register" component={Register} />
+          <Stack.Screen name="resetpassword" component={ResetPassword} />
+          <Stack.Screen
+            name="forgotpassword"
+            component={ForgotPasswordScreen}
+          />
+          <Stack.Screen name="tabNavigator" component={BottomNavigator} />
+          <Stack.Screen name="itemDetails" component={ItemDetailsScreen} />
+          <Stack.Screen name="search" component={SearchScreen} />
+          <Stack.Screen name="wishlist" component={WishlistScreen} />
+          <Stack.Screen name="filter" component={FilterScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

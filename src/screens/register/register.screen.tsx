@@ -44,7 +44,7 @@ const Register = (props: any) => {
       const res: any = await Models.auth.register(body);
       reset();
       setState({success: true});
-      Functions.Sucess('Register successfully');
+      Functions.Success('Register successfully');
       setTimeout(() => {
         props.navigation.navigate('login');
       }, 1500);

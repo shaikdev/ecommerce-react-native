@@ -1,11 +1,11 @@
 import instance from '../utils/axios.utils';
 
-const auth = {
-  login: data => {
+const search = {
+  createSearch: (body:any) => {
     let promise = new Promise((resolve, reject) => {
-      let url = 'auth/login';
+      let url = 'search/create_search';
       instance()
-        .post(url, data)
+        .post(url,body)
         .then(res => {
           resolve(res.data);
         })
@@ -19,15 +19,15 @@ const auth = {
     });
     return promise;
   },
-  register: (data: any) => {
+  getManySearch: () => {
     let promise = new Promise((resolve, reject) => {
-      let url = 'auth/register';
+      let url = 'search/get_many_search';
       instance()
-        .post(url, data)
-        .then((res: any) => {
+        .post(url)
+        .then(res => {
           resolve(res.data);
         })
-        .catch((error: any) => {
+        .catch(error => {
           if (error.response) {
             reject(error.response.data.message);
           } else {
@@ -37,16 +37,15 @@ const auth = {
     });
     return promise;
   },
-
-  socialLogin: (data: any) => {
+  editSearch: (body:any) => {
     let promise = new Promise((resolve, reject) => {
-      let url = 'auth/social_login';
+      let url = 'search/edit_search';
       instance()
-        .post(url, data)
-        .then((res: any) => {
+        .post(url,body)
+        .then(res => {
           resolve(res.data);
         })
-        .catch((error: any) => {
+        .catch(error => {
           if (error.response) {
             reject(error.response.data.message);
           } else {
@@ -54,27 +53,8 @@ const auth = {
           }
         });
     });
-    return promise
+    return promise;
   },
-
-  getCurrentUser: () => {
-    let promise = new Promise((resolve, reject) => {
-      let url = 'auth/get_current_user';
-      instance()
-        .post(url)
-        .then((res: any) => {
-          resolve(res.data);
-        })
-        .catch((error: any) => {
-          if (error.response) {
-            reject(error.response.data.message);
-          } else {
-            reject(error);
-          }
-        });
-    });
-    return promise
-  }
 };
 
-export default auth;
+export default search;

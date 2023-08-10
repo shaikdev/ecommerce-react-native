@@ -2,7 +2,11 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {Slider} from '@miblanchard/react-native-slider';
 
-const RangeSliderComponent = () => {
+interface IRangeSlider {
+  onChange:Function,
+  value:number
+}
+const RangeSliderComponent = (props:IRangeSlider) => {
   return (
     <View className="w-full h-full">
       <Slider
@@ -11,8 +15,8 @@ const RangeSliderComponent = () => {
         minimumValue={100}
         maximumValue={1000}
         minimumTrackTintColor={'#689C36'}
-        value={100}
-        onValueChange={value => console.log(value)}
+        value={props.value}
+        onValueChange={value => props.onChange(value)}
       />
     </View>
   );

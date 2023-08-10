@@ -7,7 +7,8 @@ interface ISearchHeader {
   placeholder: string;
   filter_icon: any;
   onClick: any;
-  onFilterClick?: Function;
+  onFilterScreen: any;
+  onChange:Function
 }
 const SearchHeaderComponent = (props: ISearchHeader) => {
   return (
@@ -15,15 +16,18 @@ const SearchHeaderComponent = (props: ISearchHeader) => {
       <TouchableOpacity onPress={props.onClick}>
         <ImageComponent src={props.icon} svg width={24} height={24} />
       </TouchableOpacity>
-      <View className="flex-1 h-[60px]">
+      <View className="flex-1">
         <SearchComponent
+          onChange={(value:string)=>props.onChange(value)}
           placeHolderTextColor={'#ACADAC'}
           placeholder={props.placeholder}
         />
       </View>
-      <View className="h-14 w-14 bg-primary-green rounded-[10px] items-center justify-center">
-        <ImageComponent src={props.filter_icon} svg width={24} height={24} />
-      </View>
+      <TouchableOpacity onPress={props.onFilterScreen}>
+        <View className="h-14 w-14 bg-primary-green rounded-[10px] items-center justify-center">
+          <ImageComponent src={props.filter_icon} svg width={24} height={24} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

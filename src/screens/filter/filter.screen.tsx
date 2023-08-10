@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useReducer, useState} from 'react';
 import {
   Assets,
   Container,
@@ -9,10 +9,45 @@ import {
   RangeSliderComponent,
   SecondaryButton,
 } from 'utils/import.utils';
+import {useSelector} from 'react-redux';
+import filterReducerHook, {
+  filterInitialState,
+} from 'utils/hooks.reducer.utils.';
+import {storeFilterData} from 'utils/redux.utils';
+import {useIsFocused} from '@react-navigation/native';
 
 const FilterScreen = (props: any) => {
+  // redux
+  const filter = useSelector((state: any) => state.filter.filter);
+  const [isStore, setStore] = useState(false);
+  const [isRefresh, setRefresh] = useState(true);
+
+  // react navigation
+  const isFocused = useIsFocused();
+  // constant
   const rating = ['2 or higher', '3 or higher', '4 or higher', '5 star only'];
   const deliveryTime = ['> 60 min', '< 60 min', '40 - 50 min', '10 - 20 min'];
+
+  // hooks
+  const [state, dispatch] = useReducer(filterReducerHook, filterInitialState);
+
+  useEffect(() => {
+    dispatch({type: 'CATEGORY', payload: filter.category});
+    dispatch({type: 'PRICE', payload: filter.price});
+    dispatch({type: 'RATING', payload: filter.rating});
+    dispatch({type:'DELIVERY_TIME',payload: filter.delivery_time});
+  }, [isFocused]);
+
+  useEffect(() => {
+    if (isStore) storeFilterData(state);
+  }, [isRefresh, isStore]);
+
+  const updateState = (type: string, payload: string | number) => {
+    dispatch({type, payload});
+    setRefresh(!isRefresh);
+    setStore(true);
+  };
+
   return (
     <Container>
       <View className="px-5 mt-4 h-[30px]">
@@ -26,7 +61,12 @@ const FilterScreen = (props: any) => {
         Categories
       </Text>
       <View className="h-8 mt-3">
-        <FilterCategoryComponent />
+        <FilterCategoryComponent
+          active={state.category}
+          onChange={(value: string) => {
+            updateState('CATEGORY', value);
+          }}
+        />
       </View>
       <View className="mt-6 px-5">
         <Text className="font-raleway-semi-bold text-xl text-secondary-black">
@@ -34,18 +74,23 @@ const FilterScreen = (props: any) => {
         </Text>
         <View className="flex-row justify-between items-center mt-3">
           <View className="h-[38px] w-[120px] border border-gray-text rounded-[10px] items-center justify-center">
-            <Text> $ 5.00</Text>
+            <Text>₹100</Text>
           </View>
           <View className="flex-1 items-center justify-center">
             <Text>to</Text>
           </View>
           <View className="h-[38px] w-[120px] border border-gray-text rounded-[10px] items-center justify-center">
-            <Text> $ 5.00</Text>
+            <Text>₹ {state.price}</Text>
           </View>
         </View>
       </View>
       <View className="mt-3 px-5 h-5">
-        <RangeSliderComponent />
+        <RangeSliderComponent
+          value={state.price}
+          onChange={(value: number) => {
+            updateState('PRICE', value);
+          }}
+        />
       </View>
       <View className="mt-8 px-5">
         <Text className="font-raleway-semi-bold text-xl text-secondary-black">
@@ -54,23 +99,34 @@ const FilterScreen = (props: any) => {
         <View className="mt-2 flex-row justify-start gap-x-4 space-y-4 items-center flex-wrap">
           {rating.map((item: any, index: number) => {
             return (
-              <View
-                key={index}
-                className="flex-row justify-start space-x-2 items-center border border-gray-text px-3 h-8 rounded-lg">
-                <View>
-                  <ImageComponent
-                    src={Assets.star}
-                    width={18}
-                    height={18}
-                    svg
-                  />
+              <TouchableOpacity onPress={() => updateState('RATING', item)}>
+                <View
+                  key={index}
+                  className={`flex-row justify-start space-x-2 items-center  px-3 h-8 rounded-lg ${
+                    state.rating === item
+                      ? 'bg-primary-green'
+                      : 'border border-gray-text'
+                  }`}>
+                  <View>
+                    <ImageComponent
+                      src={Assets.star}
+                      width={18}
+                      height={18}
+                      svg
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      className={`font-merriweather text-sm ${
+                        state.rating === item
+                          ? 'text-button-color'
+                          : 'text-filter-category-text-color'
+                      } `}>
+                      {item}
+                    </Text>
+                  </View>
                 </View>
-                <View>
-                  <Text className="font-merriweather text-sm text-filter-category-text-color">
-                    {item}
-                  </Text>
-                </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>
@@ -82,15 +138,27 @@ const FilterScreen = (props: any) => {
         <View className="mt-2 flex-row justify-start gap-x-4 space-y-4 items-center flex-wrap">
           {deliveryTime.map((item: any, index: number) => {
             return (
-              <View
-                key={index}
-                className=" justify-center items-center border border-gray-text px-3 h-8 rounded-lg">
-                <View>
-                  <Text className="font-merriweather text-sm text-filter-category-text-color">
-                    {item}
-                  </Text>
+              <TouchableOpacity
+                onPress={() => updateState('DELIVERY_TIME', item)}>
+                <View
+                  key={index}
+                  className={`justify-center items-center  px-3 h-8 rounded-lg ${
+                    state.delivery_time === item
+                      ? 'bg-primary-green'
+                      : 'border border-gray-text'
+                  }`}>
+                  <View>
+                    <Text
+                      className={`font-merriweather text-sm ${
+                        state.delivery_time === item
+                          ? 'text-button-color'
+                          : 'text-filter-category-text-color'
+                      } `}>
+                      {item}
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>
