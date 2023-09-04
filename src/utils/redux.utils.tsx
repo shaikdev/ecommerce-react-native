@@ -5,6 +5,7 @@ import {
   PRODUCT_DETAILS,
   SEARCH_LIST,
   FILTER_LIST,
+  FILTER_PRODUCT_LIST,
 } from './types.utils';
 
 export const storeCurrentTab = (payload: any) =>
@@ -37,6 +38,13 @@ export const storeSearchProduct = (payload: any) => {
 export const storeFilterData = (payload: any) => {
   store.dispatch({
     type: FILTER_LIST,
+    payload,
+  });
+};
+
+export const storeFilterProductList = (payload: any) => {
+  store.dispatch({
+    type: FILTER_PRODUCT_LIST,
     payload,
   });
 };

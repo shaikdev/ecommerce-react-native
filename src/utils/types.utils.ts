@@ -6,3 +6,4 @@ export const FILTER_LIST = 'FILTER_LIST';
 export const PRICE = 'PRICE';
 export const RATING = 'RATING';
 export const DELIVERY_TIME = 'DELIVERY_TIME';
+export const FILTER_PRODUCT_LIST = 'FILTER_PRODUCT_LIST';

@@ -17,7 +17,7 @@ const filterReducerHook = (state:any, action: any) => {
     case PRICE:
       return {
         ...state,
-        price: action.payload || 100,
+        price: action.payload || 500,
       };
     case RATING:
       return {

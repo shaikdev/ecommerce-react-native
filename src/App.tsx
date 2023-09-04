@@ -21,6 +21,7 @@ import FilterScreen from 'screens/filter/filter.screen';
 import WishlistScreen from 'screens/wishlist/wishlist.screen';
 import {Provider} from 'react-redux';
 import store from 'store/store';
+import FilterProduct from 'screens/ffilter_product/filter_product.screen';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           <Stack.Screen name="search" component={SearchScreen} />
           <Stack.Screen name="wishlist" component={WishlistScreen} />
           <Stack.Screen name="filter" component={FilterScreen} />
+          <Stack.Screen name="filterProduct" component={FilterProduct} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

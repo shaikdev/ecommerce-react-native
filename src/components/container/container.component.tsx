@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StatusBar, Text } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {View, StatusBar} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { LottieComponent } from 'utils/import.utils';
+import {LottieComponent} from 'utils/import.utils';
 
 interface IContainer {
   loading?: boolean;
@@ -30,15 +30,15 @@ const Container = (props: IContainer) => {
         </View>
       ) : (
         <View
-          style={{ paddingTop: inset.top }}
+          style={{paddingTop: inset.top}}
           className={`h-full w-full bg-background ${props.style || ''}`}>
-          {props.spinner && (
-            <Spinner
-              textStyle={{ color: '#191A19' }}
-              textContent={props.content}
-              visible={props.spinner}
-            />
-          )}
+          <Spinner
+            color={'#689C36'}
+            animation="slide"
+            textStyle={{color: '#191A19'}}
+            textContent={props.content}
+            visible={props.spinner}
+          />
           {props.children}
         </View>
       )}

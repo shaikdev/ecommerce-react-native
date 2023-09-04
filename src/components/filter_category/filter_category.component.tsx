@@ -25,9 +25,10 @@ const FilterCategoryComponent = (props: IFilterCategory) => {
         <View className="flex-row justify-start items-center space-x-3">
           {data.map((item: any, index: number) => {
             return (
-              <TouchableOpacity onPress={() => handleCategory(item)}>
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleCategory(item)}>
                 <View
-                  key={index}
                   className={`h-8 px-4  rounded-lg  items-center justify-center ${
                     props.active === item
                       ? 'bg-primary-green'

@@ -5,7 +5,7 @@ import {showMessage} from 'react-native-flash-message';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import _ from 'lodash';
 export const getBaseURL = () => {
-  let baseURL = 'http://192.168.0.104:8001';
+  let baseURL = 'http://192.168.1.26:8001';
   // let baseURL = 'https://ecommerce-server-6rrk.onrender.com';
   // let baseURL = 'https://pleat-api.augmo.io';
   // let baseURL='https://api.pleat.co.in'

@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {Assets, Container, Functions, ImageComponent} from 'utils/import.utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
+import { onGoogleSignout } from 'utils/google.auth';
 
 const SplashScreen = (props: any) => {
   useEffect(() => {

@@ -55,7 +55,8 @@ const SearchScreen = (props: any) => {
   const getSearchData = async () => {
     try {
       const res: any = await Models.search.getManySearch();
-      const modifyData: any = _.map(res.data, (e: any) => e.product);
+      let modifyData: any = _.orderBy(res.data, ['updated_at'], ['desc']);
+      modifyData = _.map(modifyData, (e: any) => e.product);
       setSearchData(modifyData);
     } catch (err: any) {
       console.log('err', err);
@@ -68,7 +69,7 @@ const SearchScreen = (props: any) => {
         product: item._id,
       };
       await Models.search.editSearch(body);
-      getSearchData();
+      getSearchData()
     } catch (err: any) {
       console.log('err', err);
     }
@@ -83,6 +84,7 @@ const SearchScreen = (props: any) => {
   };
 
   const navigateProduct = (item: IProduct) => {
+    createSearch(item);
     storeProductDetails(item);
     props.navigation.navigate('itemDetails');
   };
@@ -188,7 +190,7 @@ const SearchScreen = (props: any) => {
                           key={index}
                           className="flex-row justify-between items-start">
                           <View>
-                            <Text className="font-merriweather text-xs text-gray-text">
+                            <Text className="font-merriweather text-sm text-gray-text">
                               {search.name}
                             </Text>
                           </View>
