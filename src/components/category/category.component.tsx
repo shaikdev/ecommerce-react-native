@@ -1,14 +1,54 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ImageComponent, Assets} from 'utils/import.utils';
+import _ from 'lodash';
 
-const CategoryComponent = () => {
+interface ICategory {
+  data?: any;
+  showName: boolean;
+  callback?: Function;
+  active?: any;
+}
+const CategoryComponent = (props: ICategory) => {
+  const isActive = (item: any) => {
+    if (props.active?.includes(item.name)) return 'border-primary-green scale-1';
+    else return 'border-input-background ';
+  };
   return (
-    <View className="flex flex-row items-center justify-start space-x-2">
-      <View className="w-[50px] h-[69px] flex items-center justify-center border-2 border-input-background">
-        <ImageComponent src={Assets.orange} svg width={40} height={40} />
-      </View>
-      <Text className="text-sm font-merriweather text-secondry-black mt-1"></Text>
+    <View className="flex-row space-x-5 items-center">
+      {props.data &&
+        props.data.map((item: any, i: number) => {
+          return (
+            <TouchableOpacity
+              key={i}
+              onPress={() =>
+                props.callback ? props.callback(item.name) : null
+              }>
+              <View
+                className={`w-[55px] h-[55px] items-center justify-center border-2 rounded-lg ${isActive(
+                  item,
+                )}`}>
+                <ImageComponent
+                  resize="cover"
+                  radius={8}
+                  src={item.image}
+                  width={44}
+                  height={44}
+                />
+              </View>
+              {props.showName && (
+                <Text
+                  className={`text-xs text-center font-merriweather mt-2 ${
+                    props.active && props.active.includes(item.name)
+                      ? 'text-primary-green'
+                      : 'text-secondary-black'
+                  } `}>
+                  {item.name}
+                </Text>
+              )}
+            </TouchableOpacity>
+          );
+        })}
     </View>
   );
 };

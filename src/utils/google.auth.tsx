@@ -29,5 +29,8 @@ export const onGoogleButtonPress = async () => {
 export const onGoogleSignout = async () => {
   try {
     const singnOurt = await auth().signOut();
-  } catch (err: any) {}
+    console.log('sign out', singnOurt)
+  } catch (err: any) {
+    console.log('err',err)
+  }
 };

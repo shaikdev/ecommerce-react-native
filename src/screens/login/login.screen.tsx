@@ -1,5 +1,5 @@
 import {View, Text, Alert, TouchableOpacity, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Assets,
   Container,
@@ -16,11 +16,14 @@ import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Models from 'imports/models.imports';
 import {ILogin} from 'helper/interface.helper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = (props: any) => {
   // state
   const [state, setState] = useSetState({
     success: false,
+    redirect: false,
+    spinner: false,
   });
   // hook form
   const {
@@ -39,29 +42,37 @@ const Login = (props: any) => {
   const handleLogin = async (body: ILogin) => {
     try {
       const res: any = await Models.auth.login(body);
-      Functions.Sucess('Login successfully');
+      Functions.Success('Login successfully');
+      await AsyncStorage.setItem('user_id', res.data._id);
+      await AsyncStorage.setItem('token', JSON.stringify(res.data.token));
       setState({success: true});
       reset();
-      setTimeout(() => {
-        setState({success: false});
-        props.navigation.navigate('home');
-      }, 1500);
+      setState({success: false});
+      props.navigation.navigate('home');
     } catch (err: any) {
       Functions.Failure(err);
     }
   };
 
+  //hooks
+  useEffect(() => {
+    if (state.redirect) props.navigation.navigate('tabNavigator');
+  }, [state.redirect]);
+
   return (
-    <Container statusBarColor={state.success ? '#379237' : 'transparent'}>
+    <Container
+      content="Google Signing"
+      spinner={state.spinner}
+      statusBarColor={state.success ? '#379237' : 'transparent'}>
       <ScrollView
         style={{height: '100%'}}
         contentContainerStyle={{paddingBottom: 40}}>
         <View className="px-5 pt-2">
           <View className="flex items-center justify-center">
-            <Text className="text-secondry-black text-3xl items-center font-raleway-semi-bold">
+            <Text className="text-secondary-black text-3xl items-center font-raleway-semi-bold">
               Sign In
             </Text>
-            <Text className="text-secondry-black text-xs font-merriweather pt-2">
+            <Text className="text-secondary-black text-xs font-merriweather pt-2">
               Fill the field below to Sign In
             </Text>
             <View className="mt-4">
@@ -109,15 +120,18 @@ const Login = (props: any) => {
           />
         </View>
         <View className="mt-6 flex items-center">
-          <Text className="font-merriweather text-xs text-secondry-black">
+          <Text className="font-merriweather text-xs text-secondary-black">
             Or Sign In with
           </Text>
         </View>
-        <View className="w-1/2 m-auto mt-5">
-          <SocialComponent />
+        <View className="w-full mt-5 justify-center items-center">
+          <SocialComponent
+            spinner={(spinner: boolean) => setState({spinner})}
+            redirect={(redirect: boolean) => setState({redirect})}
+          />
         </View>
         <View
-          className={`flex flex-col justify-start items-center flex-1 mt-8`}>
+          className={`flex flex-col justify-start items-center flex-1 mt-5`}>
           <View className="flex flex-row justify-center items-center space-x-1">
             <Text className="font-merriweather text-xs text-gray-text">
               Do you don't have account?
